@@ -26,6 +26,10 @@ import androidx.compose.material.Divider
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -51,6 +55,8 @@ fun OrderSummaryScreen(
     modifier: Modifier = Modifier
 ){
     val resources = LocalContext.current.resources
+
+    var allreadySent : Boolean by rememberSaveable { mutableStateOf(false)}
 
     val numberOfCupcakes = resources.getQuantityString(
         R.plurals.cupcakes,
@@ -90,17 +96,30 @@ fun OrderSummaryScreen(
             subtotal = orderUiState.price,
             modifier = Modifier.align(Alignment.End)
         )
-        Button(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = { onSendButtonClicked(newOrder, orderSummary)  }
-        ) {
-            Text(stringResource(R.string.send))
+        if (!allreadySent) {
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    onSendButtonClicked(newOrder, orderSummary)
+                    allreadySent = true
+                }
+            ) {
+                Text(stringResource(R.string.send))
+            }
+            OutlinedButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { onCancelButtonClicked() }
+            ) {
+                Text(stringResource(R.string.cancel))
+            }
         }
-        OutlinedButton(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = { onCancelButtonClicked() }
-        ) {
-            Text(stringResource(R.string.cancel))
+        else{
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { onCancelButtonClicked() }
+            ) {
+                Text(stringResource(R.string.new_order))
+            }
         }
     }
 }

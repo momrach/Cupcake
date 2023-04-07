@@ -44,5 +44,6 @@
         <item quantity="one">%d cupcake</item>
         <item quantity="other">%d cupcakes</item>
     </plurals>
+    <string name="new_order">New Order</string>
 
 </resources>

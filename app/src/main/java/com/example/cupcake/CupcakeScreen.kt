@@ -59,10 +59,20 @@ enum class CupcakeScreen() {
 fun CupcakeAppBar(
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
+    quantity: Int,
+    destination: String ="",
     modifier: Modifier = Modifier
 ) {
+
     TopAppBar(
-        title = { Text(stringResource(id = R.string.app_name)) },
+        title = {
+                if (canNavigateBack) {
+                    Text(stringResource(id = R.string.app_name) + "($quantity) $destination")
+                }
+                else{
+                    Text(stringResource(id = R.string.app_name))
+                }
+            },
         modifier = modifier,
         navigationIcon = {
             if (canNavigateBack) {
@@ -95,7 +105,9 @@ fun CupcakeApp(
         topBar = {
             CupcakeAppBar(
                 canNavigateBack = navController.previousBackStackEntry != null,
-                navigateUp = { navController.navigateUp() }
+                navigateUp = { navController.navigateUp() },
+                destination = currentScreen,
+                quantity = viewModel.getQuantity()
             )
         }
     ) { innerPadding ->

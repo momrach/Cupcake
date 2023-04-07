@@ -85,6 +85,10 @@ class OrderViewModel : ViewModel() {
         _uiState.value = OrderUiState(pickupOptions = pickupOptions())
     }
 
+    fun getQuantity() : Int{
+        return _uiState.value.quantity
+    }
+
     /**
      * Returns the calculated price based on the order details.
      */
@@ -115,4 +119,6 @@ class OrderViewModel : ViewModel() {
         }
         return dateOptions
     }
+
+
 }
