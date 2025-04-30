@@ -124,10 +124,12 @@ fun OrderSummaryScreen(
     }
 }
 
-//@Preview
-//@Composable
-//fun OrderSummaryPreview(){
-//    OrderSummaryScreen(
-//        orderUiState = OrderUiState(0, "Test", "Test", "$300.00"),
-//    )
-//}
+@Preview
+@Composable
+fun OrderSummaryPreview(){
+    OrderSummaryScreen(
+        orderUiState = OrderUiState(0, "Test", "Test", "$300.00"),
+        onCancelButtonClicked = { /* TODO: handle cancel button */ },
+        onSendButtonClicked = { subject: String, summary: String -> /* TODO: handle send button */ }
+    )
+}

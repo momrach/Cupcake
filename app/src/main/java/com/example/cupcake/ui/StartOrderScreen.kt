@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cupcake.R
+import com.example.cupcake.data.DataSource
 import com.example.cupcake.data.DataSource.quantityOptions
 
 /**
@@ -92,8 +93,11 @@ fun SelectQuantityButton(
     }
 }
 
-//@Preview
-//@Composable
-//fun StartOrderPreview(){
-//    StartOrderScreen(quantityOptions = quantityOptions)
-//}
+@Preview
+@Composable
+fun StartOrderPreview(){
+    StartOrderScreen(quantityOptions = DataSource.quantityOptions.map { Pair(it.first, it.second) },
+        onNextButtonClicked = { /* TODO: handle next button */ },
+        modifier = Modifier.padding(16.dp)
+    )
+}
